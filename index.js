@@ -10,6 +10,9 @@ const checkIntervalDuringBrownout   = 5000;
 const checkIntervalDuringGoodSupply = 100;
 var timer = 100;
 
+console.log("Starting brownout watchdog");
+sysconsole.log("Starting brownout watcher");
+
 /*
 setInterval(function() { 
   var brownoutState = isUnderVoltage();
