@@ -1,0 +1,32 @@
+{
+  "name": "raspi2-power-monitor",
+  "version": "1.0.0",
+  "description": "Log power supply brownouts to the system log",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/saraf/raspi2-power-monitor.git"
+  },
+  "keywords": [
+    "power",
+    "supply",
+    "monitoring",
+    "raspberry",
+    "pi",
+    "model",
+    "2"
+  ],
+  "author": "Aalhad A Saraf <aalhad@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/saraf/raspi2-power-monitor/issues"
+  },
+  "homepage": "https://github.com/saraf/raspi2-power-monitor#readme",
+  "dependencies": {
+    "ain2": "^2.0.0",
+    "pigpio": "^0.6.1"
+  }
+}
