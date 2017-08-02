@@ -1,4 +1,5 @@
-var Gpio = require('pigpio').Gpio,
+var pigpio = require('pigpio'),
+    Gpio = pigpio.Gpio,
     gpio;
 
 var SysLogger = require('ain2');
@@ -9,6 +10,7 @@ gpio = new Gpio(35);
 const checkIntervalDuringBrownout   = 5000;
 const checkIntervalDuringGoodSupply = 100;
 var timer = 100;
+var timerVar;
 
 console.log("Starting brownout watchdog");
 sysconsole.log("Starting brownout watcher");
@@ -21,7 +23,7 @@ setInterval(function() {
 */
 
 function startTimer() {
-  setTimeout(function() {
+  timerVar = setTimeout(function() {
     var brownoutState = isUnderVoltage();
 
     if(brownoutState) {
@@ -53,3 +55,19 @@ function isUnderVoltage() {
 }
 
 startTimer();
+
+process.on('SIGHUP', shutdown);
+process.on('SIGINT', shutdown);
+process.on('SIGCONT', shutdown);
+process.on('SIGTERM', shutdown);
+
+function shutdown(signal) {
+  pigpio.terminate();
+  clearInterval(timerVar);
+  console.log('raspi2-brownout-watcher must exit, performed cleanup. Got: ', signal);
+  process.exit(0);
+}
+
+process.on('exit', function (code) {
+ console.log("Exiting. Got code: ", code);
+});
