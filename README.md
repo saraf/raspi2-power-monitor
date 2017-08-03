@@ -29,18 +29,25 @@ Running Node LTS v6.11.1
  - Clone this repository.
  - Enable UDP socket for rsyslog by editing /etc/rsyslogd.conf and make sure that the following lines are un-commented
 
-    ```language
+    ```
         # provides UDP syslog reception
         $ModLoad imudp
         $UDPServerRun 514
     ```
  - Install the pigpio library `sudo apt-get install pigpio`
  - Do a `npm install`.
-Run `sudo node index.js &`
+ - Copy the brownout-monitor.service file to the `/etc/systemd/system` directory
+ - Enable the brownout-monitor service with
+   ```
+   sudo systemctl enable brownout-monitor.service
+   ```
+ - Start the service with
+   ```
+   sudo systemctl start brownout-monitor.service
+   ```
 
 * Brownouts will now be logged to /var/log/user.log
 like so:
-Jul 27 13:31:34 box /home/pi/sandbox/raspi2-power-monitor/node_modules/ain2/index.js[16560]: Brownout ... Power Supply Voltage went below 4.63 V
-
-TODO: Deployment as a daemon
-Maybe using something like PM2
+    ```
+    Jul 27 13:31:34 box /home/pi/sandbox/raspi2-power-monitor/node_modules/ain2/index.js[16560]: Brownout ... Power Supply Voltage went below 4.63 V
+    ```
